@@ -1,92 +1,93 @@
 
 # Task Allocator Pro
 
-**Task Allocator Pro** is a web-based task management system that streamlines task allocation, assignment, and tracking within teams. It implements a role-based access control model, ensuring a clear separation of responsibilities among managers, project leaders, and team members.
+**Task Allocator Pro** is a comprehensive web-based task management system designed to streamline task allocation, assignment, and progress tracking within teams. It uses a role-based access control model, empowering managers, project leaders, and team members with distinct functionalities.
 
 ## Table of Contents
-
+- [System Overview](#system-overview)
 - [Features](#features)
-- [System Roles](#system-roles)
-- [Technical Overview](#technical-overview)
-- [Installation](#installation)
+- [Technical Implementation](#technical-implementation)
+- [Installation and Setup](#installation-and-setup)
 - [Database Configuration](#database-configuration)
-- [Usage Workflow](#usage-workflow)
-- [Test Accounts](#test-accounts)
+- [User Registration](#user-registration)
+- [Task Management Workflow](#task-management-workflow)
+- [Test User Accounts](#test-user-accounts)
+- [System Requirements](#system-requirements)
+- [Data Structure](#data-structure)
+- [Browser Compatibility](#browser-compatibility)
 
+---
+
+## System Overview
+
+Task Allocator Pro implements a three-tier role-based access control model:
+- **Manager**: Creates projects and assigns project leaders.
+- **Project Leader**: Creates tasks and assigns them to team members.
+- **Team Member**: Accepts/rejects tasks and updates their task progress.
 
 ---
 
 ## Features
 
-### Manager
-- Create and manage projects
-- Assign project leaders
-- Upload project-related documents
-- Search and monitor all tasks
-- Track overall project progress
+### Manager Features
+- Create new projects with detailed specifications.
+- Assign project leaders.
+- Search tasks across all projects.
+- Upload supporting documents.
+- Monitor overall project progress.
 
-### Project Leader
-- Create tasks under assigned projects
-- Assign tasks to team members with contribution percentages
-- Set task priorities and deadlines
-- Monitor task progress
-- Search tasks within projects
+### Project Leader Features
+- Create tasks under assigned projects.
+- Assign tasks to team members with contribution percentages.
+- Set priorities and deadlines for tasks.
+- Monitor task progress.
+- Search and manage project tasks.
 
-### Team Member
-- Accept or reject assigned tasks
-- Update task progress percentage
-- View task details and deadlines
-- Search for assigned tasks
-
----
-
-## System Roles
-
-Task Allocator Pro defines three main user roles:
-
-- **Manager**: Oversees projects and assigns project leaders
-- **Project Leader**: Manages tasks and allocates them to team members
-- **Team Member**: Executes tasks and updates progress
+### Team Member Features
+- Accept or reject assigned tasks.
+- Update task completion percentage.
+- View task details and deadlines.
+- Search assigned tasks.
 
 ---
 
-## Technical Overview
+## Technical Implementation
 
-### Technology Stack
-- **Frontend**: HTML, CSS
-- **Backend**: PHP
-- **Database**: MySQL
+### File Structure
+- **PHP Files**: Core application logic and UI.
+- **CSS**: Application styling.
+- **Includes**: Authentication and database configuration.
 
-### Project Structure
-- `/includes` — Database configuration and authentication files
-- `/css` — Application stylesheets
-- PHP files — Core logic and interface components
+### Database Structure
+The application uses MySQL with the following key tables:
+- **Users**: User information, roles, and credentials.
+- **Projects**: Project specifications, budgets, and deadlines.
+- **Tasks**: Task descriptions, dates, effort, and priorities.
+- **TeamAssignments**: Mapping between tasks and users.
+- **ProjectTeamLeaders**: Mapping between projects and their leaders.
+- **TaskProgress**: History of task updates.
+- **Documents**: Project-related uploaded files.
 
-### Database Tables
-- `Users` — Stores user credentials and role information
-- `Projects` — Stores project details
-- `Tasks` — Stores task descriptions and deadlines
-- `TeamAssignments` — Maps tasks to team members
-- `ProjectTeamLeaders` — Maps project leaders to projects
-- `Documents` — Stores uploaded files
-- `TaskProgress` — Tracks progress updates
+#### Database Schema Highlights
+- Relational design connecting users, projects, tasks, and progress updates.
+- Use of foreign keys to maintain data integrity.
 
-### Security
-- Password hashing
-- Input validation and sanitization
-- PDO prepared statements to prevent SQL injection
-- Session management for authentication
-- Role-based feature access
+### Security Features
+- Password hashing for secure authentication.
+- Form validation and sanitization.
+- PDO prepared statements to prevent SQL injection.
+- Role-based feature access control.
+- Session-based authentication.
 
 ---
 
-## Installation
+## Installation and Setup
 
-1. Clone the repository to your web server directory.
-2. Import the provided database schema into your MySQL server.
-3. Update the database configuration file located at `includes/dbconfig.in.php`.
-4. Make sure PHP, MySQL, and a web server (e.g., Apache) are installed and running.
-5. Access the application via your browser.
+1. Clone the repository to your web server.
+2. Import the database schema (`web1223166_db.sql`) into MySQL.
+3. Configure database connection in `includes/dbconfig.in.php`.
+4. Ensure PHP 8.3+ and MySQL 8.0+ are installed and configured.
+5. Access the application via your web browser.
 
 ### Clone the Repository
 ```bash
@@ -97,8 +98,7 @@ git clone https://github.com/your-username/task-allocator-pro.git
 
 ## Database Configuration
 
-Edit the `includes/dbconfig.in.php` file to match your server settings:
-
+Edit the `includes/dbconfig.in.php` file:
 ```php
 $host = 'localhost';
 $port = 3307;
@@ -109,26 +109,56 @@ $password = '';
 
 ---
 
-## Usage Workflow
+## User Registration
+
+The system provides a three-step registration process:
+1. **Personal Information**: Enter user details, role, qualifications, and skills.
+2. **Account Creation**: Choose username and password.
+3. **Confirmation**: Review and finalize registration.
+
+---
+
+## Task Management Workflow
 
 1. **Manager** creates a project and assigns a **Project Leader**.
-2. **Project Leader** breaks down the project into tasks and assigns them to **Team Members**.
-3. **Team Members** accept or reject assigned tasks.
-4. **Team Members** update their task progress.
-5. **Project Leaders** monitor task progress and report back.
-6. **Managers** oversee project-wide performance.
+2. **Project Leader** breaks down the project into tasks.
+3. **Project Leader** assigns tasks to **Team Members**.
+4. **Team Members** accept or reject tasks and update progress.
+5. **Project Leaders** monitor task completion.
+6. **Managers** oversee overall project performance.
 
 ---
 
-## Test Accounts
+## Test User Accounts
 
-You can log in using the following test credentials:
+| Role            | Username | Password     |
+|-----------------|----------|--------------|
+| Manager         | Abd123   | Abd12301230   |
+| Project Leader  | Ali333   | Ali12301230   |
+| Team Member     | User11   | U112301230    |
 
-| Role             | Username | Password     |
-|------------------|----------|--------------|
-| Manager          | Abd123   | Abd12301230   |
-| Project Leader   | Ali333   | Ali12301230   |
-| Team Member      | User11   | U112301230    |
+> Additional test accounts are available in the database.
 
 ---
+
+## System Requirements
+
+### Server Requirements
+- PHP 8.3+
+- MySQL 8.0+
+- Apache or Nginx web server
+
+---
+
+## Data Structure
+
+The system handles the following entities:
+- **Users**: User profiles with roles.
+- **Projects**: Project metadata including budgets and deadlines.
+- **Tasks**: Task details, priorities, and deadlines.
+- **Assignments**: User-task relationships with contribution percentages.
+- **Progress Tracking**: History of task updates.
+
+---
+
 
